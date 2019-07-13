@@ -1,0 +1,36 @@
+class Solution {
+    	public List<List<String>> groupAnagrams(String[] strs) {
+        
+		List<List<String>> result = new ArrayList<>();
+		Map<String, List> map = new HashMap<>();
+		String key;
+		for(String s : strs){
+			char[] temp = s.toCharArray();
+			Arrays.sort(temp);
+			key = String.valueOf(temp);
+			if(!map.containsKey(key))	map.put(key, new ArrayList());
+			map.get(key).add(s);
+		}
+
+		return new ArrayList(map.values());
+    	}
+}
+
+//---------------(accept)
+利用 sorted ， 然后字母一样的， sorted 之后 他们也就一样了。 用 map 去收集 List , 最后把所有的 values 装到一个 List 里面
+
+//-----------
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        if (strs.length == 0) return new ArrayList();
+        Map<String, List> ans = new HashMap<String, List>();
+        for (String s : strs) {
+            char[] ca = s.toCharArray();
+            Arrays.sort(ca);
+            String key = String.valueOf(ca);
+            if (!ans.containsKey(key)) ans.put(key, new ArrayList());
+            ans.get(key).add(s);
+        }
+        return new ArrayList(ans.values());
+    }
+}

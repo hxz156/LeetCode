@@ -1,0 +1,42 @@
+class Solution {
+   	 public String[] reorderLogFiles(String[] logs) {
+
+        	Comparator<String> myComparator = new Comparator<String>(){
+			@Override
+			public int compare(String s1, String s2){
+				int space_1 = s1.indexOf(' ');
+				int space_2 = s2.indexOf(' ');
+				String s1_t = s1.substring(space_1 + 1);
+				String s2_t = s2.substring(space_2 + 1);
+				if(s1_t.charAt(0)<='9'){
+					if(s2_t.charAt(0)<='9') return 0;
+					if(s2_t.charAt(0)>'9') return 1;
+				}
+				if(s2_t.charAt(0)<='9') return -1;
+				
+				int temp = s1_t.compareTo(s2_t);
+				if(temp ==0){
+					return s1.substring(0, space_1).compareTo(s2.substring(0, space_2));
+				}else{
+					return temp;
+				}
+				
+			} 
+		
+		};
+		Arrays.sort(logs, myComparator);
+		return logs;
+   	 }
+}
+
+//-----------------------------(accept)
+
+s1 = s1.substring(space_1 + 1)  		substring 都是小写
+if(s2.charAt(0)<='9') return -1			如果 s1 在 s2 前面就 return -1
+int temp = s1_t.compareTo(s2_t)			最后比的的整个String, 不是单一的开头	
+return s1.substring(0, space_1).compareTo(s2.substring(0, space_2));	如果后面一样，还得比较他们的 identifier
+
+
+
+
+

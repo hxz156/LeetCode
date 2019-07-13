@@ -1,0 +1,64 @@
+class MaxStack {
+	Stack<Integer> stack = new Stack<>();
+	Stack<Integer> max_stack = new Stack<>();
+
+    	/** initialize your data structure here. */
+    	public MaxStack() {
+      	//stack = new Stack<>();
+		//max_stack = new Stack<>();
+    	}
+    
+    	public void push(int x) {
+		int max = max_stack.isEmpty()? x: max_stack.peek();
+        	stack.push(x);
+		if(x >= max){ 
+			max_stack.push(x);
+			max = x;
+		}else{
+			max_stack.push(max);
+		}
+    	}
+    
+    	public int pop() {
+		max_stack.pop();
+        	return stack.pop();
+    	}
+    
+    	public int top() {
+        	return stack.peek();
+    	}
+    
+    	public int peekMax() {
+        	return max_stack.peek();
+    	}
+    
+    	public int popMax() {
+        	Stack<Integer> store = new Stack<>();
+		int return_max = peekMax();
+
+		while(top() != return_max){
+			store.push(pop());					
+		}
+		pop();				
+		while(!store.isEmpty()){
+			push(store.pop());		
+			
+		}
+		return return_max;
+    	}
+}
+
+//------------------------------
+while(!store.isEmpty()){
+	push(store.pop());
+}							这里得利用 isEmpty() 语句 ， 和利用上面写的大 method pop()
+
+
+
+		while(top() != return_max){
+			store.push(pop());					
+		}						注意使用自己写的大 method pop()
+
+
+
+

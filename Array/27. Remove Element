@@ -1,0 +1,51 @@
+class Solution{
+
+	public int removeElement(int[] nums, int val){
+		int j = 0;
+		for(int i=0; i<nums.length; i++){
+			if(nums[i] != val){
+				nums[j] = nums[i];
+				j++;
+			}
+		}
+		return j;
+
+	}
+	
+}
+(accept)
+//-------------------------------------------------------
+同一个array，两个index，一个一直在涨，每一个都搜索，另一个就是有条件地在涨。
+
+//--------------------------------------------------------
+另一个方法，不移动不相关的，因为浪费资源，只在需要移动的时候移动。这个在leetcode 答案里面有细节分析：
+
+//--------------------------------------------------------------
+class Solution{
+
+	public int removeElement(int[] nums, int val){
+		int i = 0;
+		int j = nums.length - 1;
+		while(i <= j){
+			if(nums[i] == val){
+				nums[i] = nums[j];
+				j--;
+			}
+			else{
+				i++;
+			}
+		}
+		return j+1;
+	}
+	
+}
+//---------------------------------------------------------------
+while(i <= j) 最开始我没有写等于进去，这样是错的。因为我的i就是length - 1 , 而不是length， 所以少了一位，这样最后一位就不走了。
+
+
+
+
+
+
+
+

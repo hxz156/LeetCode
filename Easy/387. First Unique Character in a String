@@ -1,0 +1,15 @@
+class Solution {
+    	public int firstUniqChar(String s) {
+		Set<Character> set = new HashSet<>();
+        	for(int i=0; i<s.length(); i++){
+			if((!set.contains(s.charAt(i))) 
+				&& i == s.lastIndexOf(s.charAt(i))) return i;
+			set.add(s.charAt(i));
+		}
+		return -1;
+    	}
+}
+//-----------------------------------------(accept)
+因为我 loop 里面还有一个 lastIndexOf 所以 time complexity 应该是 O(n^2)
+
+想要 O(n)：用一个 map 记录所有的单词和出现的次数，然后找出只出现一次的，然后回去 loop 里面再找。

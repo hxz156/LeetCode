@@ -1,0 +1,96 @@
+class MinStack {
+    /** initialize your data structure here. */
+	Stack<Integer> main_stack = new Stack<>();
+	Stack<Integer> min_stack = new Stack<>();
+
+   	public MinStack() {
+        
+    	}
+    
+    	public void push(int x) {
+        	main_stack.push(x);
+		if(min_stack.isEmpty()){
+			min_stack.push(x);
+		}else if(min_stack.peek()>=x){
+			min_stack.push(x);
+		}
+    	}
+    
+    	public void pop() {
+		/*	Cannot write like the following:
+        	 *	if(main_stack.peek() == min_stack.peek()){
+		 *		main_stack.pop();
+		 *		min_stack.pop();
+		 *	}else{
+		 *		main_stack.pop();
+		 *	}
+		 */
+		int x = main_stack.pop();
+		if(min_stack.peek() == x) min_stack.pop();
+    	}
+    
+   	public int top() {
+        	return main_stack.peek();
+    	}
+    
+    	public int getMin() {
+        	return min_stack.peek();
+    	}
+}
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack obj = new MinStack();
+ * obj.push(x);
+ * obj.pop();
+ * int param_3 = obj.top();
+ * int param_4 = obj.getMin();
+ */
+//-----------------------------------------------(accept)
+需要注意的是上面的Java解法中的pop()中，为什么不能用注释掉那两行的写法，我之前也不太明白为啥不能对两个stack同时调用peek()函数来比较，如果是这种写法，那么不管main和min对栈顶元素是否相等，永远返回false。这是为什么呢，这我们就要到Java的对于peek的定义了，对于peek()函数的返回值并不是int类型，而是一个Object类型，这是一个基本的对象类型，如果我们直接用==来比较的话，那么肯定不会返回true，因为是两个不同的对象，所以我们一定要先将一个转为int型，然后再和另一个进行比较，这样才能得到我们想要的答案，这也是Java和C++的一个重要的不同点吧。
+
+}else if(min_stack.peek()>=x)  一定是 >= 不能是 > ,因为假如我们 push （2，2，2），那么当取掉一个 2 的时候，最小 还是 2
+
+follow up：如果只用一个 stack 呢？
+
+//---------------------------------------------------
+class MinStack {
+
+   	 /** initialize your data structure here. */
+	int min = Integer.MAX_VALUE;
+	Stack<Integer> stack = new Stack<>();
+   	 public MinStack() {
+   	     
+   	 }
+    
+   	 public void push(int x) {
+        	if(x<=min){
+			stack.push(min);
+			min = x;
+		}
+		stack.push(x);
+   	 }
+    
+   	 public void pop() {
+        	if(stack.pop() == min) min=stack.pop();
+   	 }
+    
+   	 public int top() {
+        	return stack.peek();
+   	 }
+    
+   	 public int getMin() {
+        	return min;
+    	}
+}	
+//-------------------------------------------(accept)
+只用一个 stack 去完成功能。 思路是：遇到一个更小的值，先把之前最小的值再 push 一下，然后再把新的 push。 在 pop 的时候，如果 pop 的是当前最小值， 那么下一个值就是 之前的最小值，直接 pop 就能得到。
+
+
+
+
+
+
+
+
+

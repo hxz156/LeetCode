@@ -1,0 +1,26 @@
+public class Solution extends Relation{
+
+	public int findCelebrity(int n){
+		int candidate =0;
+
+		for(int i=1;i<n;i++){
+			if(knows(candidate , i)){
+				candidate = i;
+			}
+		}
+		for(int i=0;i<n;i++){
+			if((i!=candidate && knows(candidate ,i))||(i!=candidate && !knows(i , candidate)))
+				return -1;
+		}
+		return candidate;
+	}
+}
+
+//-------------------------------------------
+(accept)
+第一个 for loop 利用celebrity 被所有人知道 和 celebrity 不知道任何人。（巧妙，因为如果有 celebrity 一定能够找出来。）
+								这里更多利用的是不知道任何人。
+第二个 make sure 这个人的确是 celebrity。我最开始没有这个，是错的。因为可能存在没有 candidate 的情况。
+
+第二个的 i!=candidate 很重要，因为题里面的图没有自己认识自己。
+然后 knows(candidate ,i) 和 !knows(i , candidate) 的 确认，缺一不可。

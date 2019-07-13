@@ -1,0 +1,43 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+ 	public ListNode reverseList(ListNode head) {
+      	
+		ListNode prev = null;
+		ListNode cur = head;
+		while(cur != null){
+			ListNode temp = cur.next;
+			cur.next = prev;
+			prev = cur;
+			cur = temp;
+		}
+		return prev;
+    	}
+}
+//-------------------------(accept)
+有三个 node 变量，temp 是用来储存下一个的， 然后 prev 一定要从 null 开始。这道题需要继续。这里三个变量太重要，从 null 开始太重要
+Time complexity: O(n)		space complexity: O(1)
+
+//------------------------------------------
+class Solution {
+	public ListNode reverseList(ListNode head) {
+      	if(head ==null || head.next == null) return head;
+		ListNode temp = reverseList(head.next);
+		head.next.next = head;
+		head.next = null;
+		return temp;
+  	}
+}
+//------------------------------------------(accept)
+(https://www.youtube.com/watch?v=MRe3UsRadKw)
+
+一题多解，利用 recursive 来解决，这个 YouTube 讲的太好。
+
+
+

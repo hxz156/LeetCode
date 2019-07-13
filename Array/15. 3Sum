@@ -1,0 +1,58 @@
+class Solution{
+	public List<List<Integer>> threeSum(int[] num){
+		List<List<Integer>> ret = new LinkedList<>();
+		Arrays.sort(num);
+		int low=0;
+		int	hi=0;
+		int sum=0;
+		for(int i=0;i<num.length-2;i++){
+			if(i==0 || num[i]!=num[i-1]){
+				low=i+1;
+				hi=num.length-1;
+				sum = 0-num[i];
+				while(low<hi){	
+					if(num[low]+num[hi]==sum){
+						ret.add(Arrays.asList(num[i],num[low],num[hi]));
+						while(low<hi && num[hi-1]==num[hi]) {hi--;}
+						while(low<hi && num[low+1]==num[low]) {low++;}
+						low++;
+						hi--;
+					}
+					else if(num[low]+num[hi]<sum){
+						low++;
+					}else{
+						hi--;
+					}
+				}
+			}
+		}
+		return ret;
+	}
+}
+//-------------------------
+别人的思路，我没有 if(i==0 || num[i]!=num[i-1]) 这条，所以重复了一次。避免下一个和上一个重复，这样后面找的值也就不会一样。
+
+else if(num[low]+num[hi]<sum) 后面采用比较值来移动 window , 这样就不用把所有都排列组合，只需要看一次。
+
+
+//--------------------------------------
+From discussion:
+public List<List<Integer>> threeSum(int[] num) {
+    Arrays.sort(num);
+    List<List<Integer>> res = new LinkedList<>(); 
+    for (int i = 0; i < num.length-2; i++) {
+        if (i == 0 || (i > 0 && num[i] != num[i-1])) {
+            int lo = i+1, hi = num.length-1, sum = 0 - num[i];
+            while (lo < hi) {
+                if (num[lo] + num[hi] == sum) {
+                    res.add(Arrays.asList(num[i], num[lo], num[hi]));
+                    while (lo < hi && num[lo] == num[lo+1]) lo++;
+                    while (lo < hi && num[hi] == num[hi-1]) hi--;
+                    lo++; hi--;
+                } else if (num[lo] + num[hi] < sum) lo++;
+                else hi--;
+           }
+        }
+    }
+    return res;
+}

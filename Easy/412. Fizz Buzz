@@ -1,0 +1,94 @@
+class Solution {
+    	public List<String> fizzBuzz(int n) {
+       	List<String> result = new ArrayList<>();
+		String t_3 = "Fizz";
+		String t_5 = "Buzz"; 
+		for(int i=1; i<=n; i++){
+			if(i%15 == 0){
+				result.add(t_3 + t_5);
+			}else if (i%3 ==0){
+				result.add(t_3);
+			}else if(i%5 ==0){
+				result.add(t_5);
+			}else{
+				result.add(String.valueOf(i));
+			}
+		}
+		return result;
+    	}
+}
+//--------------------(accept)
+自己的方法，不过 如果 3 ---> "Fizz" , 5 ---> "Buzz", 7 ---> "Jazz" 需要验证的情况就太多了，不好。
+下面这个方法就是解决这个问题的。
+//-----------------------------------------
+class Solution {
+   	 public List<String> fizzBuzz(int n) {
+        	List<String> result = new ArrayList<>();
+		String con_string = "";
+		for(int i=1; i<=n; i++){
+			con_string = "";
+			if(i%3 ==0){
+				con_string+="Fizz";
+			}
+			if(i%5==0){
+				con_string+="Buzz";
+			}
+			if(con_string != ""){
+				result.add(con_string);
+			}else{
+				result.add(String.valueOf(i));
+			}
+		}
+		return result;
+    	}
+}
+//----------------------------------------------(accept)
+解决情况太多的方法
+Time Complexity: O(N)	Space Complexity: O(1) 
+
+如果要求不用 % 怎么办？
+
+//---------------------------------------------------------
+class Solution {
+    	public List<String> fizzBuzz(int n) {
+        	List<String> result = new ArrayList<>();
+		String con_string = "";
+		int t_3 = 1;
+		int t_5 = 1;
+		for(int i=1; i<=n; i++){
+			con_string = "";
+			if(t_3 == 3){
+				con_string+="Fizz";
+				t_3 = 0;
+			}
+			if(t_5 ==5){
+				con_string+="Buzz";
+				t_5=0;
+			}
+			if(con_string != ""){
+				result.add(con_string);
+			}else{
+				result.add(String.valueOf(i));
+			}
+			t_3++;
+			t_5++;
+		}
+		return result;
+    	}
+}
+//--------------------------------------------
+一个很好的 follow up 的解决方法， 注意 t_3 = 0 和 t_5=0   因为最后t_3++	t_5++ ， 相当于变成 1 ， 如果直接赋值 1 的话，就相当于赋值 成为  2  了。
+
+
+
+
+
+
+
+
+
+
+
+
+
+

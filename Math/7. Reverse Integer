@@ -1,0 +1,25 @@
+class Solution {
+    	public int reverse(int x) {
+        	int result = 0;
+		int pop = 0;
+		
+		while(x != 0){
+			pop = x%10;
+			if(result > Integer.MAX_VALUE/10 || result == Integer.MAX_VALUE/10 && pop>7)	return 0;
+			if(result < Integer.MIN_VALUE/10 || result == Integer.MIN_VALUE/10 && pop<-8)	return 0;
+			result =result*10 + pop;
+			
+			x = x/10;
+		}
+
+		return result;
+    	}
+}
+
+//-------------------(accept)
+检查 if(result) 必须在 result =result*10 + pop 之前检查，因为你检查的是 Integer.MAX_VALUE/10， 就是提前检查。
+
+INT_MAX is 2147483647 	所以最后一位不能 >7
+INTMIN is -2147483648	所以最后一位不能 <-8
+
+while(x != 0) 用这个条件循环，而不是 while(x<0) 因为你还有负数啊

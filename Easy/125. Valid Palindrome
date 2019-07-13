@@ -1,0 +1,18 @@
+class Solution {
+    	public boolean isPalindrome(String s) {
+        	s = s.toLowerCase();
+		s = s.replaceAll("\\W+"," ");
+		s = s.replaceAll("\\s+","");
+		int left = 0, right = s.length()-1;
+
+		while(left <= right && left<s.length() && right >=0){
+			if(s.charAt(left) != s.charAt(right)) return false;
+			left++;
+			right--;
+		}
+		return true;
+    	}
+}
+//------------------------------------------(accept)
+
+速度不够快， 想要速度快一点可以用指针对比， 用 Character.isLetterOrDigit() 去判断，不是字母就移动，是字母再判断就完事儿了。

@@ -1,0 +1,29 @@
+class Solution {
+
+    	public String longestCommonPrefix(String[] strs) {
+		if(strs.length == 0)	return "";
+		if(strs.length == 1) return strs[0];
+		char cur;
+
+        	for(int i=0; i<strs[0].length(); i++){
+			cur = strs[0].charAt(i);
+
+			for(int j=1; j<strs.length; j++){
+				if(i == strs[j].length()) return strs[0].substring(0, i);
+				
+				if(strs[j].charAt(i) != cur) return strs[0].substring(0, i);
+			}
+		}
+		return strs[0];
+    	}
+}
+//---------------------------------------------(accept)
+
+因为是比较所有的 string ， 所以取第一个 string 的字母去一一比较就行了， 因为第一个 prefix 必定满足啊。这样就把 for loop 建立起来了。 
+
+return strs[0] 	最后 return 第一个 string ， 我没有写出来。因为你把所有的都看完了，中间没有 return ， 说明第一个全部满足，那就是第一个整个 string 
+
+//-------------------------------------------------------------------
+
+
+

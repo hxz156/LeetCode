@@ -1,0 +1,70 @@
+class Solution {
+    	public String longestPalindrome(String s) {
+		if(s.length()<1){return "";}
+		int left, right;
+		int len1, len2;
+		int max_here, max_sofar;
+		max_sofar = max_here = 1;
+		int start, end;
+		start = end =0;
+		for(int i=0; i<s.length(); i++){
+			//1
+			left = right = i;
+			len1 = checkLength(s, left, right);
+
+			//2
+			left = i;
+			right = left+1;
+			len2 = checkLength(s, left, right);
+			max_here = Math.max(len1, len2);
+			if(end - start +1 < max_here){
+				start = i - (max_here-1)/2;
+				end = i + max_here/2;
+			}
+		}
+		return s.substring(start, end+1);
+    	}
+	
+	public int checkLength(String s, int left, int right){
+		while(left>=0 && right<s.length() &&s.charAt(left)==s.charAt(right)){
+			left--;
+			right++;
+		}
+		return right-left-1;
+	}
+}
+//--------------------------------------------
+l1 = count_length(i, i, s);
+			l2 = count_length(i, i+1, s);
+			max_here = Math.max(l1, l2);
+			if(max_here > (right-left+1)){
+				left = i-(max_here-1)/2;
+				right = i+ max_here/2;
+			}
+
+/*
+			l = count_length(i, i, s);
+			if(l >(right-left+1)){
+				left = i-l/2;
+				right = i+ l/2;
+			}
+			l = count_length(i, i+1, s);
+			if(l >(right-left+1)){
+				left = i-(l-1)/2;
+				right = i+ l/2;
+			}
+			*/
+//----------------------------(accept)
+从中间向两边查看的方法。
+return right-left-1  因为不管前面怎么样，都是-- 和++ ，位置提前变了。
+
+if(end - start +1 < max_here){  这里不需要 max_fofar, 因为返回的时候，必须要有 index , 用这两个 index 就相当于储存了 max_sofar
+
+start = i - (max_here-1)/2 和 end = i + max_here/2 也很经典。
+
+if(s.length()<1){return "";} 我没有加这个，错误了。像这种特殊情况，上来先整上再说，不会错。
+
+
+
+
+

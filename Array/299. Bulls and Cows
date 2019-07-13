@@ -1,0 +1,47 @@
+//-----------------------（accept）
+class Solution{
+
+	public String getHint(String secret, String guess){
+		int bull = 0;
+		int cows = 0;
+		int[] secretArr = new int[secret.length()];
+		int[] guessArr = new int[secret.length()];
+		int[] numbers = new int[10];
+
+		for(int i=0;i<secretArr.length;i++){
+			secretArr[i] = Character.getNumericValue(secret.charAt(i));
+			guessArr[i]=Character.getNumericValue(guess.charAt(i));
+		}
+		for(int i=0;i<secretArr.length;i++){
+			if(secretArr[i]==guessArr[i]){
+				bull++;
+			}else{
+				if(numbers[secretArr[i]]<0){
+					cows++;
+				}
+				if(numbers[guessArr[i]]>0){
+					cows++;
+				}
+				numbers[secretArr[i]]++;
+				numbers[guessArr[i]]--;
+			}
+
+		}
+		return bull + "A" + cows + "B";
+
+	}
+}
+
+//------------------------------------
+JAVA 里面的string 居然不能用 array 那样来使用。比如 secret[i] , 这样不行，必须得转化成 array 。
+查找cows 的时候，不能从头开始一个一个查找，如果有多个重复，就会多次计算。
+
+这道题的思想是 discussion 里面的。
+
+if(secretArr[i]==guessArr[i]){
+				bull++;
+			}else{
+				我没有这个 else 
+
+
+
