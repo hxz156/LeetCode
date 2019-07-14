@@ -1,0 +1,74 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    	public boolean isSymmetric(TreeNode root) {
+        	return is_same(root, root);
+    	}
+
+	public boolean is_same(TreeNode left, TreeNode right){
+		if(left == null && right == null) return true;
+		if(left == null || right == null) return false;
+		return left.val == right.val 
+			&&	is_same(left.left, right.right)
+			&&	is_same(left.right, right.left);
+	}
+}
+//--------------------------------------------------------------(accept)
+recursive 的方法
+
+Time complexity : O(n). Because we traverse the entire input tree once, the total run time is O(n), where n is the total number of nodes in the tree.
+
+Space complexity : The number of recursive calls is bound by the height of the tree. In the worst case, the tree is linear and the height is in O(n). Therefore, space complexity due to recursive calls on the stack is O(n) in the worst case. 
+
+//--------------------------------------------------------------------------
+class Solution {
+    	public boolean isSymmetric(TreeNode root) {
+      	Stack<TreeNode> stack = new Stack<>();
+		if(root == null) return true;
+
+		stack.push(root.left);
+		stack.push(root.right);
+
+		while(!stack.isEmpty()){
+			TreeNode t1 = stack.pop();
+			TreeNode t2 = stack.pop();
+			if(t1 == null && t2 == null) continue;
+			if(t1 == null || t2 == null) return false;
+			if(t1.val != t2.val) return false;
+			stack.push(t1.left);
+			stack.push(t2.right);
+			stack.push(t1.right);
+			stack.push(t2.left);
+		}
+		return true;
+    	}
+
+}
+//-----------------------------------------------------------------------(accept)
+Instead of recursion, we can also use iteration with the aid of a queue. Each two consecutive nodes in the queue should be equal, and their subtrees a mirror of each other.
+
+思路和 recursive 一样。不过这里是把要比较的两个放在一起，然后 pop() 出来比较。
+
+Time complexity : O(n). Because we traverse the entire input tree once, the total run time is O(n), where n is the total number of nodes in the tree.
+
+Space complexity : There is additional space required for the search queue. In the worst case, we have to insert O(n) nodes in the queue. Therefore, space complexity is O(n).
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,67 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+	int max;
+    	public int diameterOfBinaryTree(TreeNode root) {
+        	max = 1;
+		helper(root);
+		return max - 1;
+   	}
+
+	public int helper(TreeNode root){
+		if(root == null) return 0;
+
+		int L = helper(root.left);
+		int R = helper(root.right);
+		max = Math.max(max, L + R + 1);
+		return Math.max(L, R) + 1;
+	}
+}
+//----------------------------------------------------------------(accept)
+下面这个自己写的，小变化
+//----------------------------------------------------
+
+
+class Solution {
+	int ans;
+    	public int diameterOfBinaryTree(TreeNode root) {
+		if(root == null) return 0;
+		ans = 0;
+		depth(root);
+        	return ans - 1;
+    	}
+
+	public int depth (TreeNode root){
+		if(root == null) return 0;
+		int L = depth(root.left);
+		int R = depth(root.right);
+		int max_here = Math.max(L, R);
+		ans = Math.max(ans, L+R+1);
+		return max_here + 1;
+	}
+}
+//-------------------------------------------------------------------(accept)
+if(root == null) return 0 	这个 method 最后返回的是 这个 root 的 depth
+
+
+return ans - 1 		为什么 -1， 因为是求 edges, 就是中间的间隔。
+
+
+
+
+
+
+
+
+
+
+
+
+
