@@ -1,0 +1,58 @@
+class Solution {
+   	 public int missingNumber(int[] nums) {
+        	Arrays.sort(nums);
+		int len = nums.length;
+		if(nums[len-1] != len)	return len;
+		if(nums[0] != 0)	return 0;
+		for(int i=1; i<len; i++){
+			if(nums[i] - nums[i-1] != 1)	return i; 
+		}
+	 	return -1;
+    	}
+}
+//-------------------------------------(accept)
+if(nums[len-1] != len)	return len	因为是 0 - n， 一共应该是 n+1 个数字，但是长度只有 n ， 所以少了一个数字。因此这个就是检查最后一个数字是不是 n 。 
+
+Time complexity : O(nlgn)
+The only elements of the algorithm that have asymptotically nonconstant time complexity are the main for loop (which runs in O(n) time), and the sort invocation (which runs in O(nlgn) time for Python and Java). Therefore, the runtime is dominated by sort, and the entire runtime is O(nlgn).
+
+Space complexity : O(1) (or O(n))
+In the sample code, we sorted nums in place, allowing us to avoid allocating additional space. If modifying nums is forbidden, we can allocate an O(n) size copy and sort that instead.
+
+//----------------------------------------------------------
+class Solution {
+    	public int missingNumber(int[] nums) {
+       	Arrays.sort(nums);
+		int left=0, right=nums.length;
+		int mid;
+		while(left < right){
+			mid = (left + right) / 2;
+			if(mid < nums[mid]){ 
+				right = mid;
+			}else{
+				left = mid+1;
+			}
+		} 
+		return left;
+    	}
+}
+//---------------------------------------------------------(accept)
+练习利用 二分法 的思路而已。
+
+right=nums.length		因为假如：[0,1,2,3,4]，这里缺的是 5 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
