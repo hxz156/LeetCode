@@ -1,0 +1,27 @@
+/* The isBadVersion API is defined in the parent class VersionControl.
+      boolean isBadVersion(int version); */
+
+public class Solution extends VersionControl {
+    	public int firstBadVersion(int n) {
+
+        	// we want to find the first true, which's previous one is false
+
+		int left=1, right=n;
+		int mid;
+
+		while(left < right){
+			mid = left + (right - left)/2;
+			if( !isBadVersion(mid) ) {
+				left = mid+1;
+			}else{
+				right=mid;
+			}
+		}
+		return left;
+    	}
+}
+//-----------------------------------------------------(accept)
+faster than 99.61%	less than 100.00%
+
+The search space is halved each time, so the time complexity is O(logn).
+Space complexity : O(1).

@@ -1,0 +1,45 @@
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    	public boolean hasCycle(ListNode head) {
+		if (head == null) return false;
+        	ListNode fast = head.next;
+		ListNode slow = head;
+
+		while(fast!=null && fast.next!=null){
+			if(fast == slow) return true;
+			fast = fast.next.next;
+			slow = slow.next;
+		}
+		return false;
+    	}
+}
+//------------------------------------------------------------(accept)
+
+两个 pointer ， 一个比另一个每一次快一步，如果有循环，快的一定能追上慢的。
+
+
+//-------------------------------------------------------------------
+public class Solution {
+   	public boolean hasCycle(ListNode head) {
+        	List<ListNode> list = new ArrayList<>();
+		
+		while(head != null){
+			if(list.contains(head) ) return true;
+			list.add(head);
+			head = head.next;
+		}
+		return false;
+    	}
+}
+//------------------------------------------------(accept)
+方法不太好

@@ -1,0 +1,96 @@
+class LRUCache {
+	private class d_node{
+		int key;
+		int val;
+		d_node pre;
+		d_node next;
+	}
+
+	private int capacity;
+	private int size;
+	private Map<Integer, d_node> map = new HashMap<>();
+	d_node head, tail;
+
+
+    	public LRUCache(int capacity) {
+        	this.capacity = capacity;
+		head = new d_node();
+		tail= new d_node();
+		head.next = tail;
+		head.pre = null;
+		tail.pre = head;
+		tail.next = null;
+    	}
+    
+    	public int get(int key) {
+        	if(map.containsKey(key)){
+			d_node node = map.get(key);
+			move_top(node);
+			return node.val;
+		}else{
+			return -1;
+		}
+    	}
+    
+    	public void put(int key, int value) {
+
+		d_node new_node;
+		if(map.containsKey(key)){
+			new_node = map.get(key);
+			new_node.val = value;
+			move_top(new_node);
+		}else{
+			new_node = new d_node();
+			new_node.key = key;
+			new_node.val = value;
+			map.put(key, new_node);
+			add_node(new_node);
+		}
+		if(map.size() > capacity){
+			remove_tail();
+		}
+		
+    	}
+
+	public void remove_tail(){
+		map.remove(tail.pre.key);
+		remove_node(tail.pre);
+	}
+
+	public void remove_node(d_node node){
+		node.pre.next = node.next;
+		node.next.pre = node.pre;
+	}
+
+	public void add_node(d_node node){
+		node.next = head.next;
+		node.pre = head;
+		head.next = node;
+		node.next.pre = node;
+	}
+
+	public void move_top(d_node node){
+
+		// remove node's old relation
+		remove_node(node);
+		
+		// add new relation
+		add_node(node);
+	}
+}
+//----------------------------------------------------(accept)
+faster than 91.94%	less than 82.57%
+
+结构是： private Map<Integer, d_node> map = new HashMap<>()
+		这样 add ， remove 都是 O(1)
+
+		然后写method，要写的很细致，单独写很多出来：
+		add_node()		加一个从来没有出现的 node 去 head 那里
+		remove_node()	删除一个存在的 node
+		remove_tail()	删除 tail
+		move_top()		把一个存在的 node move 到 head 那里
+
+
+
+
+

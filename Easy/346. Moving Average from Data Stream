@@ -1,0 +1,63 @@
+class MovingAverage {
+	Queue<Integer> queue = new LinkedList<>();
+	int size;
+	
+
+    	/** Initialize your data structure here. */
+    	public MovingAverage(int size) {
+       	this.size = size;
+		
+    	}
+    
+    	public double next(int val) {
+       	if(queue.size() == size){
+			queue.remove();
+			queue.add(val);
+		}else{
+			queue.add(val);
+		}
+		double sum=0.0;
+		for(Integer i : queue){
+			sum+=i;
+		}
+		return sum/queue.size();
+		
+    	}
+}
+//----------------------------------------------------------
+faster than 7.87% 	less than 70.87%
+
+利用 queue
+add()- This method is used to add elements at the tail of queue. More specifically, at the last of linked-list if it is used.
+
+remove()- This method removes and returns the head of the queue. It throws NoSuchElementException when the queue is empty.
+
+
+//------------------------------------------------------
+class MovingAverage {
+
+	List<Integer> list = new ArrayList<>();
+	int size;
+
+    	/** Initialize your data structure here. */
+    	public MovingAverage(int size) {
+    	    this.size=size;
+    	}
+    
+    	public double next(int val) {
+    	    	if(list.size() == size){
+			list.remove(list.size()-1);
+			list.add(0, new Integer(val));
+		}else{
+			list.add(0, new Integer(val));
+		}
+		double sum=0.0;
+		for(int i : list){
+			sum+=i;
+		}
+		return sum/(list.size());
+    	}
+}
+//-----------------------------------------------------------(accept)
+faster than 5.78%	less than 71.06%
+利用 list 去记录， 利用 list.add(0, new Integer(val)) 每次都会把所有的其他往后面移动。
