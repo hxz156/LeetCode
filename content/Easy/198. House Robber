@@ -1,0 +1,62 @@
+class Solution {
+    	public int rob(int[] nums) {
+		if(nums.length <= 0) return 0;
+        	int[] store = new int[nums.length + 1];
+		store[0] = 0;
+		store[1] = nums[0];
+		for(int i=2; i<nums.length+1; i++){
+			store[i] = Math.max(nums[i-1] + store[i-2], store[i-1]);
+		}
+		return store[nums.length];
+    	}
+}
+//-------------------------------------------------------------------------(accept)
+faster than 100.00%		 less than 100.00%
+建一个长度多一个的 array 去储存，为什么长度要多一个？因为需要两个才能计算出一个，所以多一个就直接计算第三个。
+和其他的思路一样，不过这里是顺着思路来，不是逆向思路。
+dynamic problem
+
+//------------------------------------------------------------------------------
+class Solution {
+    	public int rob(int[] nums) {
+		int[] store = new int[nums.length];
+		Arrays.fill(store, -1);
+        	return helper(nums, nums.length-1, store);
+    	}
+	
+	public int helper(int[] nums, int i, int[] store){
+		if(i<0) return 0;
+		if(store[i] != -1 ) return store[i];
+		store[i] = Math.max(nums[i] + helper(nums, i-2, store), helper(nums, i-1, store) );
+		return store[i];
+	}
+}
+//-------------------------------------------------------------------(accept)
+faster than 100.00%		less than 99.94% 
+
+Recursive 的思路： rob(i) = Math.max( rob(i - 2) + currentHouseValue, rob(i - 1) )
+				rob(i)的意思就是：目前第 i 个房间最多能抢多少钱。 有了这个思路就能 recursive 了
+
+优化了下面的 recursive， 把已经计算出来的值储存起来。
+利用 Arrays.fill()， 把原本的默认为 0 的都变成 -1， 因为 input 有全都是 0 的情况。但是一个房子的财产不会是负数
+
+
+run in O(n) time. Space complexity is O(n)
+
+//--------------------------------------------------------------
+class Solution {
+    	public int rob(int[] nums) {
+        	return helper(nums, nums.length-1);
+    	}
+	
+	public int helper(int[] nums, int i){
+		if(i<0) return 0;
+		return Math.max(nums[i] + helper(nums, i-2), helper(nums, i-1) );
+	}
+}
+//--------------------------------------------------(Time Limit Exceeded)
+
+从最后一步开始想， 目前这一步如果	要，就加上 -2 那一步
+							不要，就只是 -1 那一步。
+			
+							然后 recursive

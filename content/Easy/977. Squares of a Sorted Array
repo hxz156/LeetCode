@@ -1,0 +1,33 @@
+class Solution {
+    	public int[] sortedSquares(int[] A) {
+		int len = A.length;
+
+       	int[] result = new int[len]; 
+		int i = 0, j = len-1;
+		for(int p=len-1; p>=0; p--){
+			if(A[i]*A[i] > A[j]*A[j]){
+				result[p] = A[i] * A[i];
+				i++;
+			}else{
+				result[p] = A[j] * A[j];
+				j--;
+			}
+		}
+		return result;
+    	}
+}
+//---------------------------------------------------(accept)
+创造一个 array， 然后两个 pointer，从两边对比，大的放最后，然后移动指针。
+//------------------------------------------------------
+class Solution {
+    	public int[] sortedSquares(int[] A) {
+        	for(int i=0; i<A.length; i++){
+			A[i] = A[i] * A[i];
+		}
+		Arrays.sort(A);
+		return A;
+    	}
+}
+//--------------------------------------------(accept)
+
+Time Complexity: O(NlogN), where N is the length of A

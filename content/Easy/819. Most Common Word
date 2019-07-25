@@ -1,0 +1,40 @@
+class Solution {
+    	public String mostCommonWord(String paragraph, String[] banned) {
+        	String temp_p = paragraph.replaceAll("\\W+"," ").toLowerCase();
+		Set<String> set = new HashSet<>();
+		for(String ban : banned){
+			set.add(ban);
+		}
+		String[] str = temp_p.split("\\s+");
+		Map<String, Integer> map = new HashMap<>();
+		int max_so_far = 0;
+		String ans = "";
+		for(String key : str){
+			if(!set.contains(key)){
+				int count = map.getOrDefault(key, 0);
+				count++;
+				map.put(key, count);
+				if(count >= max_so_far){
+					max_so_far = count;
+					ans = key;
+				}
+			}
+		}
+		
+		return ans;
+    	}
+}
+
+//---------------------------------
+if(count >= max_so_far){
+	max_so_far = count;
+	ans = key;
+}						在 loop 里面就确定答案，出来就 return 。 很稳的方法。
+
+String temp_p = paragraph.replaceAll("\\W+"," ").toLowerCase()  去掉标点符号，W一定是大写
+
+String[] str = temp_p.split("\\s+")		用space 或者 多个 space 把string 分开
+
+
+
+

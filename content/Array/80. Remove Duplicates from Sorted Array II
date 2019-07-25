@@ -1,0 +1,59 @@
+class Solution{
+	public int removeDuplicates(int[] nums){
+		int length = nums.length;
+		if (length <= 2)
+			return length;
+		int j=0;
+		for(int i=2;i<nums.length;i++){
+			if(nums[i]!=nums[j]){
+				nums[j+2]=nums[i];
+				j++;
+			}
+		}
+		return j+2;
+	}
+}
+
+//-----------------------------
+(accept)
+应该return j+2 ； 为什么呢？ 因为我们从j=0的时候开始比较的，我们永远在后面两位，所以j+2。默认的是不用比较前面两个。和26题的思路一样，不过这里是和前面一个比较。举一反三。
+//---------------------------
+class Solution {
+    	public int removeDuplicates(int[] nums) {
+        	if(nums.length<=2) return nums.length;
+
+		int news = 2;
+		for(int old=2; old<nums.length; old++){
+			if(nums[old]!=nums[news-2]){
+				nums[news]=nums[old];
+				news++;
+			}
+		}
+		return news;
+    	}
+}
+//-------------------------------
+这个思路应该顺利一点，注意 int news = 2 和 if(nums[old]!=nums[news-2]) 逻辑理清楚
+
+//----------------------
+
+discussion:
+Remove Duplicates from Sorted Array(no duplicates) :
+
+public int removeDuplicates(int[] nums) {
+    int i = 0;
+    for(int n : nums)
+        if(i < 1 || n > nums[i - 1]) 
+            nums[i++] = n;
+    return i;
+}
+
+Remove Duplicates from Sorted Array II (allow duplicates up to 2):
+
+public int removeDuplicates(int[] nums) {
+   int i = 0;
+   for (int n : nums)
+      if (i < 2 || n > nums[i - 2])
+         nums[i++] = n;
+   return i;
+}

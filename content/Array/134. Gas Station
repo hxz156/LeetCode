@@ -1,0 +1,25 @@
+class Solution{
+
+	public int canCompleteCircuit(int[] gas, int[] cost){
+
+		int current_tank=0;
+		int total_tank = 0;
+		int start_position =0;
+		for(int i=0;i<gas.length;i++){
+			total_tank += gas[i]-cost[i];
+			current_tank += gas[i]-cost[i];
+			if(current_tank<0){
+				start_position= i+1;
+				current_tank=0;
+			}
+		}
+		return total_tank>=0? start_position : -1;
+
+	}
+
+}
+
+//----------------------------(accept)
+终于看到博猪这一句“若这个值小于0了，则说明从起点到这个点中间的任何一个点都不能作为起点”，醍醐灌顶！冻了！谢谢。
+这里有一个数学理论，如果总的 gas 大于消耗的 cost， 那么一定有一条路能走出来。（这个没理解）
+因为你走到了后面那个点，说明在其中之前的点都是大于0的，也就是你走到这个点，你的油>=0，如果下一个点不能走，你就算从中间出发也不能走。

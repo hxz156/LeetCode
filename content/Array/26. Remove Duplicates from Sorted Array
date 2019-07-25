@@ -1,0 +1,21 @@
+class Solution {
+	public int removeDuplicates(int[] nums) {
+		int n = nums.length;
+		int i=0;
+		if(n==0)
+			return 0;
+		for(int j=1;j<nums.length;j++){
+			if(nums[j]!=nums[i]){
+				i++;
+				nums[i]=nums[j];
+			}
+		}
+       	return i+1;
+    }
+}
+
+//---------------------------------
+(accept)
+先是看length是否等于0
+因为是sorted array，所以只需要和前一个数字（是i，逻辑上面不是前一个数字）进行比较，然后i这个相当于是空的，从0开始
+然后两个变量，只有不想等的时候才++；相当于i是一个新的，后面的j再和i比较就行了，然后再，转移数值。

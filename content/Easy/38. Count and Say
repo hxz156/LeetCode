@@ -1,0 +1,43 @@
+class Solution {
+    	public String countAndSay(int n) {
+		if(n == 1) return "1";
+		if(n == 2) return "11";
+		String s = "11";
+        	for(int i=3; i<=n; i++){
+			 s = parse(s);
+		}
+		return s;
+    	}
+	
+	public String parse(String s){
+		StringBuilder list = new StringBuilder();
+		int count = 1;
+
+		for(int i=1; i<s.length(); i++){
+			if(s.charAt(i) == s.charAt(i-1)){
+				count++;
+			}else{
+				list.append(count);
+				list.append(s.charAt(i - 1));
+				count = 1;
+			}
+		}
+		list.append(count);
+		list.append(s.charAt(s.length() - 1));
+		return list.toString();
+	}
+}
+//-----------------------------------------------------------------(accept)
+list.append(count);
+list.append(s.charAt(s.length() - 1));
+return list.toString();					最后在 return 之前还要 append 一次，上面的 										loop 最后走出去的时候，最后一个 element 是加不进									去的。跑 case 的时候一定要把 开头极端， 中间普									通， 结尾极端都带进去跑一下。
+
+
+
+
+
+
+
+
+
+

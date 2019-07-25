@@ -1,0 +1,36 @@
+class Solution {
+    	public int strStr(String haystack, String needle) {
+        	int len_2 = needle.length();
+		if(len_2 == 0 || needle == null) return 0;
+
+		int len_1 = haystack.length();
+		if(len_2 > len_1) return -1;
+
+		for(int i=0; i<len_1; i++){
+			if(haystack.charAt(i) == needle.charAt(0)){
+				if(check(haystack, needle, i)) return i;
+			}
+		} 
+		return -1;
+    	}
+	
+	public boolean check (String haystack, String needle, int cur){
+		int j=0;
+		for(int i=cur; i<haystack.length() && j<needle.length(); i++){
+			if(haystack.charAt(i) != needle.charAt(j) ) return false;
+			j++;
+		}
+		if(j != needle.length() ) return false;
+		return true;
+	}
+}
+//-------------------------------------------------------------(accept)
+faster than 9.31%		 less than 99.50%
+
+if(j != needle.length() ) return false		因为要保证把 needle 吃透，所有的 needle 都必须检查
+
+
+
+
+
+

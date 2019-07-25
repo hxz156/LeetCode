@@ -1,0 +1,65 @@
+class Solution {
+    	public int[][] kClosest(int[][] points, int K) {
+		int n = points.length;
+        	int[] distance_array = new int[n];
+		int[][] ans = new int[K][2];
+
+		// compute every single distance and put it into distance_array
+		int index=0;
+		for(int[] i : points){
+			distance_array[index++]=length(i);
+		}
+
+		// sort the distance_array
+		Arrays.sort(distance_array);
+
+		// compute the length that we want
+		int len = distance_array[K-1];
+		
+		// go through all points to check if the length is the right length 
+		index = 0;
+		for(int[] i: points){
+			if(length(i) <= len) ans[index++] = i;
+		}
+		
+		return ans;
+    	}
+	
+	public int length(int[] i){
+		return i[0]*i[0] + i[1]*i[1];
+	}
+
+}
+//----------------------------------------------------------(accept)
+faster than 77.97% 	less than 74.75% 
+
+Time Complexity: O(NlogN)		Space Complexity: O(N)
+
+没有必要一上来就想要把关系一一对应，我算出我们想要的值，然后再返回去对照这个值寻找就行了。
+
+//---------------------------------------------------------
+class Solution {
+    	public int[][] kClosest(int[][] points, int K) {
+        	PriorityQueue<int[]> heap = new PriorityQueue<>((a,b)-> b[0]*b[0]+b[1]*b[1] - a[0]*a[0] - a[1]*a[1]);
+
+		for(int[] point : points){
+			heap.add(point);
+			if(heap.size() > K) heap.remove();
+		}
+
+		int[][]result = new int[K][2];
+		int index=0;
+		for(int[] i : heap){
+			result[index++] = i;
+		}
+		return result;
+    	}
+}
+//-------------------------------------------------------------(accept)
+faster than 39.66%		 less than 35.32%
+
+
+利用 heap ， 在我们需要最大值和最小值的时候，就喜欢想到 heap
+
+
+

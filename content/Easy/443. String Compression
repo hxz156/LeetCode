@@ -1,0 +1,50 @@
+
+class Solution {
+    	public int compress(char[] chars) {
+		if(chars.length == 1) return chars.length;
+
+        	int left = 0, right = 0;
+		int count = 0;
+		int cur=0;
+
+		while(right < chars.length){
+			char cur_char = chars[right];
+			chars[cur] = cur_char;
+			while(right < chars.length && cur_char==chars[right]){
+				count++;
+				right++;
+			}
+			cur++;
+			if(count > 1){
+				for(char temp: String.valueOf(count).toCharArray()) chars[cur++]=temp;
+			}
+			count = 0;
+		}
+		return cur;
+    	}
+}
+//-------------------------------------------------------(accept)
+
+这种指针变化情况很多，用 while loop 最靠谱， for loop 容易搞不清楚 ++ 
+
+char cur_char = chars[right] 	
+chars[cur] = cur_char			我们要改变原本的 array ， 上来先把新的 array 开头打好
+
+cur++;					不管有没有数字，都需要移动下一个指针
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

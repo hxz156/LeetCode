@@ -1,0 +1,111 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    	public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+		ListNode temp_a = headA, temp_b = headB;
+        	int len_a = count_length(temp_a);
+		int len_b = count_length(temp_b);
+		int dif = len_a - len_b;
+		if(dif > 0){
+			while(dif != 0){
+				headA = headA.next;
+				dif--;
+			}
+			
+		}else if(dif < 0){
+			while(dif != 0){
+				headB = headB.next;
+				dif++;
+			}
+		}
+		while(headA != null && headB != null){
+			if(headA == headB) return headA;
+			headA = headA.next;
+			headB = headB.next;
+		}
+		return null;
+    	}
+	
+	public int count_length(ListNode head){
+		int i = 0;
+		while(head != null){
+			i++;
+			head = head.next;
+		}
+		return i;
+	}
+}
+//-------------------------------------------------------(accept)(good)
+计算出两个的长度，然后把长的那一个缩短相对应的长度差，然后一一对比。这样就是 O(n) time and use only O(1) memory.
+
+Node 比较可以直接用 == 和 ！= 
+//-----------------------------------------------------------------
+public class Solution {
+    	public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+		ListNode temp_a = headA;
+		ListNode temp_b = headB;
+
+        	while(temp_a != temp_b){
+			temp_a = temp_a == null? headB : temp_a.next;
+			temp_b = temp_b == null? headA : temp_b.next;
+		}
+		return temp_a;
+    	}
+}
+//-------------------------------------------------------(accept)(good)
+leetcode 投票最高解法。
+
+
+//-------------------------------------------------------------------
+public class Solution {
+    	public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+		ListNode fake ;
+        	while(headA != null){
+			fake = headB;
+    			while(fake != null){
+				if(headA == fake) return fake;
+				fake = fake.next;
+			}
+			headA = headA.next;
+		}
+		return null;
+    	}
+}
+//-----------------------------------------------------(accept)(bad)
+
+暴力解法，把 a 的一个去和所有的 b 里面的去比较，以此类推。
+
+
+//-----------------------------------------------------------------------------
+public class Solution {
+    	public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        	List<ListNode> list = new ArrayList<>();
+		while(headA != null){
+			list.add(headA);
+			headA = headA.next;
+		}
+		int i=0;
+		while(headB != null ){
+			for(ListNode temp : list){
+				if(temp == headB)	return headB;
+			}
+			headB = headB.next;
+		}
+		return null;
+    	}
+}
+//-------------------------------------------------------(accept)(bad)
+用 list 去储存 node，然后去一个一个看。浪费储存，浪费时间的方法
+
+
+
+

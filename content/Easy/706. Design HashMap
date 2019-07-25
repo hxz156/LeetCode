@@ -1,0 +1,53 @@
+class MyHashMap {
+	List<Integer> key_list = new ArrayList<>();
+	List<Integer> value_list = new ArrayList<>();
+
+    	/** Initialize your data structure here. */
+   	 public MyHashMap() {
+        
+   	 }
+  
+    	/** value will always be non-negative. */
+    	public void put(int key, int value) {
+        	if(!key_list.contains(key)){
+			key_list.add(key);
+			value_list.add(value);
+		}else{
+			int index = key_list.indexOf(key);
+			value_list.set(index, value);
+		}
+   	 }
+    
+    	/** Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key */
+   	 public int get(int key) {
+        	int index = key_list.contains(key)? (key_list.indexOf(key)) : (-1);
+		 int result = index==-1 ? (-1) : (value_list.get(index));
+		return result;
+    	}
+    
+    	/** Removes the mapping of the specified value key if this map contains a mapping for the key */
+   	 public void remove(int key) {
+        	int index = key_list.contains(key) ? (key_list.indexOf(key)) : (-1);
+		if(index != -1){
+			key_list.remove(new Integer(key));
+			value_list.remove(index);
+		}
+   	 }
+}
+//----------------------------------------------(accept)
+discussion 用的自己写的 ListNode 没有看懂，但是他的速度很快。
+
+利用 list 的优点：	1.可以直接 remove 不管是 index 还是 value
+			2.可以直接 set 替换 value
+			3.add 的时候 value 直接自动就加在后面
+			
+
+
+
+key_list.remove(new Integer(key));			remove 里面是 int 默认 index, 所以
+
+
+
+
+
+

@@ -1,0 +1,56 @@
+//---------------------------------------------------------------
+class Solution {
+    	public List<Integer> findAnagrams(String s, String p) {
+       	List<Integer> ans = new ArrayList<>();
+		int len_p = p.length();
+		int len_s = s.length();
+		if(len_p > len_s)	return ans; 
+		
+		for(int i=0; i<=len_s - len_p; i++){
+			if(is_ana(s.substring(i, i+len_p) , p) ) ans.add(i);
+		}
+		return ans;
+    	}
+
+	public boolean is_ana (String s, String p){
+		int[] hash = new int[26];
+		for(int i=0; i<p.length(); i++){
+			hash[p.charAt(i) - 'a']++;
+		}
+		for(int i=0; i<s.length(); i++){
+			hash[s.charAt(i) - 'a']--;
+		}
+		for(int i=0; i<hash.length; i++){
+			if(hash[i] != 0) return false;
+		}
+		return true;
+	}
+}
+//----------------------------------------------------------(accept)
+利用 hash 的方法，速度稍微比下面快了一点
+
+discussion 里面好像有更好的方法，还没有看。
+
+//--------------------------------------------------------------
+class Solution {
+    	public List<Integer> findAnagrams(String s, String p) {
+       	List<Integer> ans = new ArrayList<>();
+		int len_p = p.length();
+		int len_s = s.length();
+		if(len_p > len_s)	return ans; 
+
+		for(int i=0; i<=len_s - len_p; i++){
+			if(is_ana(s.substring(i, i+len_p) , p) ) ans.add(i);
+		}
+		return ans;
+    	}
+
+	public boolean is_ana (String s, String p){
+		char[] s_array = s.toCharArray();
+		char[] p_array = p.toCharArray();
+		Arrays.sort(s_array);
+		Arrays.sort(p_array);
+		return Arrays.equals(s_array, p_array);
+	}
+}
+//--------------------------------------------------(Time Limit Exceeded!!!!!!)

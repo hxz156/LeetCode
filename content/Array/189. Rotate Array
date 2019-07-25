@@ -1,0 +1,47 @@
+class Solution{
+
+	public void rotate(int[] nums, int k){
+        int nums2[] = new int[nums.length];
+		int newPosition = 0;
+		for(int i=0;i<nums.length;i++){
+			newPosition = (i+k) % nums.length;
+			nums2[newPosition] = nums[i];
+		}
+		
+		for(int i=0;i<nums.length;i++){
+			nums[i] = nums2[i];
+		}
+	}
+
+}
+
+//-----------------------------------------
+最后 nums[i] = nums2[i] 没有写，因为他系统看的是nums[]啊。
+
+//------------------------------------------
+class Solution {
+    	public void rotate(int[] nums, int k) {
+		k = k%nums.length;
+		reverse(nums,0,nums.length-1);
+		reverse(nums,0,k-1);
+		reverse(nums,k,nums.length-1);
+	}
+	public void reverse(int[] nums, int start, int end){
+		int temp;
+		while(start <= end){
+			temp = nums[start];
+			nums[start] = nums[end];
+			nums[end] = temp;
+			start++;
+			end--;
+		}
+	}
+    	
+}
+//----------------------------------------(accept)
+利用 rotate , 写一个 rotate 的 function ， 先把整个转一圈，再把前面 k 个转一圈， 最后转剩下的。
+这样就不需要再创造一个新的 array ， 节省空间。
+
+
+
+

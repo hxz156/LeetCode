@@ -1,0 +1,34 @@
+class Solution{
+	public int maxProfit(int[] prices){
+		int maxSoFar = 0;
+		for(int i=0;i<prices.length;i++){
+			for(int j=i;j<prices.length;j++){
+				maxSoFar = Math.max(maxSoFar,prices[j]-prices[i]);
+			}
+		}
+		return maxSoFar;
+	}
+
+}
+//-----------(accept)
+暴力解法，用的愚蠢解法。练手
+
+//------------------
+class Solution{
+
+	public int maxProfit(int[] prices){
+		int maxSoFar = 0;
+		int maxEndHere = 0;
+		for(int i=1;i<prices.length;i++){
+			maxEndHere = Math.max(0,maxEndHere+=prices[i]-prices[i-1]);
+			maxSoFar = Math.max(maxSoFar,maxEndHere);
+		}
+		return maxSoFar;
+	}
+}
+//-------------(accept)
+并没有完全理解这个方法。还需要重新做。（Kadane's algorithm）
+maxEndHere = Math.max(0,maxEndHere+=prices[i]-prices[i-1]); 的+= 可以不需要，已经试过，逻辑理顺了。
+
+
+

@@ -1,0 +1,39 @@
+class Solution{
+
+	public int[] twoSum(int[] nums, int target){
+		int[] return_int = new int[2];
+		for(int i=0;i<nums.length;i++){
+			for(int j=i+1;j<nums.length;j++){
+				if((nums[i]+nums[j])==target){
+					return_int[0]=i;
+					return_int[1]=j;
+					return return_int;
+				}
+			}
+		}
+		return return_int;
+	}
+
+}
+//-------------------------------------------
+and you may not use the same element twice. 意思是，如果 target 是6， 我们不能 3+3 = 6.
+
+//----------------------------------
+class Solution{
+	public int[] twoSum(int[] nums, int target){
+		int value = 0;
+		Map<Integer,Integer> map = new HashMap<>();
+		for(int i=0;i<nums.length;i++){
+			map.put(nums[i],i);
+		}
+		for(int i=0;i<nums.length;i++){
+			value = target - nums[i];
+			if(map.containsKey(value) && map.get(value) != i){
+				return new int[] {i, map.get(value)};
+			}
+		}
+		return new int[] {-1, -1};
+	}
+}
+//-------------------------------------
+利用 map ，速度更快，但是牺牲了储存空间。

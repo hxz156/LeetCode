@@ -1,0 +1,47 @@
+class Solution {
+    	public boolean canAttendMeetings(int[][] intervals) {
+		Comparator<int[]> my_comparator = new Comparator<int[]>(){
+			@Override
+			public int compare(int[]s1 , int[]s2){
+				return s1[0] - s2[0];
+			}
+		};
+
+       	Arrays.sort(intervals, my_comparator);
+		for(int i=1; i<intervals.length; i++){
+			if(intervals[i][0] < intervals[i-1][1]) return false;
+		}
+		return true;
+    	}
+}
+//------------------------------------------------------------------------(accept)
+ faster than 91.83%		less than 40.65%
+Time complexity : O(nlogn). The time complexity is dominated by sorting. Once the array has been sorted, only O(n) time is taken to go through the array and determine if there is any overlap.	
+
+Space complexity : O(1). Since no additional space is allocated.
+
+ 先sort， 然后去比较，如果后面的 （开始） 在 前面的 （结束） 的前面，就不行。
+
+
+//-----------------------------------------------------------------------------
+class Solution {
+    	public boolean canAttendMeetings(int[][] intervals) {
+        	for(int i=0; i<intervals.length; i++){
+			for(int j=i+1; j<intervals.length; j++){
+				if(!compareTwo(intervals[i], intervals[j]) ) return false;
+			}
+		}
+		return true;
+    	}
+
+	public boolean compareTwo(int[] s1, int[] s2){
+		if(s1[0]>s2[0] && s1[1]>s2[1] && s1[0]>=s2[1]) return true;
+		if(s1[0]<s2[0] && s1[1]<s2[1] && s1[1]<=s2[0]) return true;
+		return false;
+	}
+}
+//---------------------------------------------------------------------------(accept)
+faster than 5.13%		less than 40.36%
+run time is O(n^2)		space complexity is O(1)
+
+一个一个去比较，brute force

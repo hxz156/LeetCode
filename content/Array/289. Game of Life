@@ -1,0 +1,51 @@
+class Solution {
+    	public void gameOfLife(int[][] board) {
+		if (board == null || board.length == 0) return;
+		int live_cell = 0;
+        	for(int r=0; r<board.length; r++){
+			for(int c=0; c<board[0].length; c++){
+				live_cell = new_value(board, r, c ); 
+				if(board[r][c]==0 && live_cell==3){
+					board[r][c]=2;
+				}
+				if(board[r][c]==1 && live_cell<=3 && live_cell>=2){
+					board[r][c]=3;
+				}
+			}
+		
+		}
+		for(int i=0; i<board.length; i++){
+			for(int j=0; j<board[0].length; j++){
+				board[i][j]=board[i][j]>>1;
+			}
+		}
+		
+    	}
+
+	public int new_value(int[][]board, int r, int c){
+		int result = 0;
+		for(int row=Math.max(0,r-1); row<=Math.min(r+1,board.length-1); row++){
+			for(int col=Math.max(0,c-1); col<=Math.min(c+1,board[0].length-1); col++){
+				result += board[row][col]&1;
+			}
+		}
+		result -= board[r][c]&1;
+		return result;
+	}
+}
+
+//-----------------------------------------------------------
+利用 2bit 去解决数据分开储存的问题，Notice that 1st state is independent of 2nd state.
+不需要去考虑第二阶段是死亡的情况，因为本来是0，移动过去就是0.
+
+To get the current state, simply do
+board[i][j] & 1
+To get the next state, simply do
+board[i][j] >> 1
+
+result = result + board[row][col]&1 	result = result - board[r][c]&1 
+这两个不行，必须转换成：
+result += board[row][col]&1			result -= board[r][c]&1
+
+result -= board[r][c]&1; 最后还得把自己减掉，因为只需要算周围！
+

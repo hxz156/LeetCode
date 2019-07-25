@@ -1,0 +1,69 @@
+class Solution {
+    	public boolean isHappy(int n) {
+		int fast_loop = n;
+		int slow_loop = n;
+
+		do{
+			fast_loop = compute_square(fast_loop);
+			fast_loop = compute_square(fast_loop);
+			slow_loop = compute_square(slow_loop);
+			if(slow_loop==1 || fast_loop==1) return true;
+		}while(fast_loop != slow_loop);  	
+		return false;
+	}
+
+	public int compute_square(int n){
+		int sum = 0;
+
+		while(n != 0){
+			sum += (n%10) * (n%10);
+			n = n/10;
+		}
+		return sum;
+	}
+}
+//-------------------------------(accept)
+计算 square 不难，设置一个 method 就行了。 难点是什么时候停止 loop ， 因为不合格的数字的 loop 最后会进入一个无限循环，所以设置一个快 一个 慢，当两个相等的时候，就是进入死循环的时候。
+
+//--------------------------------------------
+class Solution {
+	Set<Integer> set = new HashSet<>();
+
+    	public boolean isHappy(int n) {
+        	while(!set.contains(n)){
+			if(n==1) return true;
+			set.add(n);
+			n = compute_square(n);
+		}
+		return false;
+    	}
+
+	public int compute_square(int n){
+		int sum=0 ;
+		while(n != 0){
+			sum += (n%10) * (n%10);
+			n = n/10;
+		}
+		return sum;
+	}
+}
+//------------------------------------------(accept)
+利用一个 HashSet 来记录遇到过的所有值
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

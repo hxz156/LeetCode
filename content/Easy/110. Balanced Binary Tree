@@ -1,0 +1,25 @@
+class Solution{
+	public boolean isBalanced(TreeNode root){
+		if(root == null){
+			return true;
+		}
+
+		return (Math.abs(MaxDepth(root.left) - MaxDepth(root.right))<=1) && isBalanced(root.left) && 
+			
+		isBalanced(root.right)
+			
+	}
+
+	public int	MaxDepth(TreeNode root){
+		if(root == null){
+			return 0;
+		}
+	
+		return Math.max(MaxDepth(root.left),MaxDepth(root.right))+1;
+	}
+
+
+}
+
+//---------------------------------------------------------------------------------------------
+&& isBalanced(root.left) && isBalanced(root.right)  这句话我第一次没有写出来，这是 recursion 思想的关键所在。

@@ -1,0 +1,40 @@
+class Solution {
+    	public boolean isAlienSorted(String[] words, String order) {
+		if(words.length == 1) return true;
+
+        	List<Character> list = new ArrayList<>();
+		for(char c : order.toCharArray()){
+			list.add(c);
+		}
+		for(int i=1; i<words.length; i++){
+			if(!compare_two(words[i-1], words[i], list) ) return false;
+		}
+
+		return true;
+   	}
+
+	public boolean compare_two(String left, String right, List list){
+		for(int i=0; i<left.length(); i++){
+			if(right.length() == i) return false;
+			char l = left.charAt(i);
+			char r = right.charAt(i);
+			if(list.indexOf(l) > list.indexOf(r) ) return false;
+			if(list.indexOf(l) < list.indexOf(r) ) return true;
+		}
+		return true;
+	}
+}
+//--------------------------------------------------------(accept)
+
+思想是： 只需要两两比较就行了，然后一直比完。
+
+The words are sorted lexicographically if and only if adjacent words are. This is because order is transitive: a <= b and b <= c implies a <= c.
+
+
+if(right.length() == i) return false 		要提前比较，因为后面用了 charAt()，否则 index out of bound
+
+
+
+
+
+

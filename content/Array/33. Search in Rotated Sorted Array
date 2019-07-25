@@ -1,0 +1,64 @@
+class Solution {
+    	public int search(int[] nums, int target) {
+		if(nums.length == 0) 	return -1;
+        	int lo = 0;
+		int mid = 0;
+		int hi = nums.length - 1;
+		int rotate_point = 0;
+		while(lo < hi){
+			mid = (lo + hi) /2;
+			if(nums[mid]>nums[hi]){
+				lo = mid+1;
+			}else {
+				hi = mid;
+			}
+		}
+		rotate_point = lo;
+		lo = 0;
+		hi = rotate_point;
+		if(nums[rotate_point] == target){
+			return rotate_point;
+		}else if(nums[nums.length-1] < target){
+			return searchBranch(0, rotate_point-1, nums, target);
+		}else{
+			return searchBranch(rotate_point, nums.length-1, nums, target);
+		}
+    	}
+	public int searchBranch(int left, int right, int[] nums, int target){
+		int mid = 0;
+		while(left< right){
+			mid = (left+right)/2;
+			if(nums[mid]<target){
+				left = mid+1;
+			}else{
+				right = mid;
+			}
+		}
+		if(nums[left] == target){
+			return left;
+		}
+		return -1;
+	}
+}
+//--------------------(accept)
+二分法的利用，还的多做。
+第一个查找 rotate 的时候， 必须用 left<right 来做
+查找的时候还可以（思路更清晰）：
+public int search_under(int left, int right, int[] nums, int target){
+		int mid=0;
+		while(left<=right){
+			mid = (left+right)/2;
+			if(nums[mid]==target){
+				return mid;
+			}else if(nums[mid]>target){
+				right = mid-1;
+			}else{
+				left = mid+1;
+			}
+		}
+		return -1;
+	}
+
+
+
+

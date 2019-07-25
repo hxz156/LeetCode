@@ -1,0 +1,24 @@
+class Solution {
+    	public int mySqrt(int x) {
+		if(x <= 1) return x;
+
+      	int left=0, right=x;
+		int mid;
+		while(left < right){
+			mid = left + (right - left)/2;
+			if(x/mid >= mid) left = mid+1;
+			if(x/mid < mid) right=mid; 
+		}
+		return left-1;
+    	}
+}
+
+//----------------------------------
+Because mid*mid could result in integer overflow producing a negative value.
+mid * mid will overflow when mid > sqrt(INT_MAX)
+
+int mid = left + (right - left) / 2 better than	int mid = (right + left) / 2;
+
+what if right = 2^31-1? if left = 1, left+ right will overflow.
+
+if(x/mid >= mid) left = mid+1	就算找到了正确的 mid ，也要继续loop。后面一直都是大于，然后 right=mid 一直，最后 left=right, loop 结束，left-1

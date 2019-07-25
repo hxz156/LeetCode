@@ -1,0 +1,87 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    	public boolean isPalindrome(ListNode head) {
+        	Stack<Integer> stack = new Stack<>();
+		ListNode fake = head;
+		while(fake != null){
+			stack.push(fake.val);
+			fake = fake.next;
+		}
+		while(head != null){
+			if(head.val != stack.pop())		return false;
+			head = head.next;
+		}
+		return true;
+    	}
+}
+//------------------------------------------------------------(accept)
+用了 stack 去储存。假如 O(1) space 呢？
+
+//--------------------------------------------------------
+
+class Solution {
+    	public boolean isPalindrome(ListNode head) {
+        	ListNode slow = head, fast = head;
+		while(fast != null && fast.next != null){
+			slow = slow.next;
+			fast = fast.next.next;
+		}
+
+		ListNode reverse_list = reverse(slow);
+
+		while(reverse_list != null){
+			if(reverse_list.val != head.val) return false;
+			reverse_list = reverse_list.next;
+			head = head.next;
+		}
+		return true;
+    	}
+
+	public ListNode reverse(ListNode head){
+		if(head == null) return null;
+
+		ListNode left=null, mid=head, right;
+		while(mid!= null){
+			right=mid.next;
+			mid.next = left;
+			left = mid;
+			mid = right;
+		}
+		return left;
+	}
+}
+//-------------------------------------------------------(accept)
+
+一个快两倍，然后慢的那个点，就是第二个反转的终点
+
+while(fast != null && fast.next != null) 	两个都是去看 fast 的
+
+public ListNode reverse(ListNode head)		这个 method  是重点，left 最开始一定要设成 null, 因为这是后来判断 loop 终结的地方。
+
+right=mid.next		这只是一个暂时储存下一个 node  的 var ， 不需要改变什么
+
+return left		最后返回 left ， 因为最后一步执行的时候，最后都又移了一步
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

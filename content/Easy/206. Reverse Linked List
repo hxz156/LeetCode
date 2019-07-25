@@ -1,0 +1,53 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+ 	public ListNode reverseList(ListNode head) {
+      	
+		ListNode prev = null;
+		ListNode cur = head;
+		while(cur != null){
+			ListNode temp = cur.next;
+			cur.next = prev;
+			prev = cur;
+			cur = temp;
+		}
+		return prev;
+    	}
+}
+//-------------------------(accept)
+有三个 node 变量，temp 是用来储存下一个的， 然后 prev 一定要从 null 开始。这道题需要继续。这里三个变量太重要，从 null 开始太重要
+
+while(cur != null) 一定也是这个条件， 思路就是把目前的 next 转换成前面， 所以就是看 目前这个node，因此导致 return 的是 prev
+
+ListNode temp = cur.next		思路就是储存下一个，先把下一个拿出来，然后再改变前面的关系。
+
+Time complexity: O(n)		space complexity: O(1)
+
+//------------------------------------------
+class Solution {
+	public ListNode reverseList(ListNode head) {
+      	if(head ==null || head.next == null) return head;
+		ListNode temp = reverseList(head.next);
+		head.next.next = head;
+		head.next = null;
+		return temp;
+  	}
+}
+//------------------------------------------(accept)
+(https://www.youtube.com/watch?v=MRe3UsRadKw)
+一题多解，利用 recursive 来解决，这个 YouTube 讲的太好。
+
+recursive 一下子直接到最后，然后从最后推到前面来，这里的 return temp 永远都是 return 的最后一个，所有的都是不变。然后其他的作用就是改变链接。
+
+ListNode temp 作用就是用来接受最后一个 node，然后一层一层传递上去。
+
+head.next = null 	作用就是最后一个，他得是 null， 中间的其实已经被下一次的改变了，所以只有最后一步这个 null 会真正赋值
+
+
+

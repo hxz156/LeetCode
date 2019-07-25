@@ -1,0 +1,23 @@
+class Solution {
+    	public String addBinary(String a, String b) {
+        	int i = a.length()-1;
+		int j = b.length()-1;
+		StringBuilder result_rev = new StringBuilder();
+		int carry = 0;
+		int sum = 0;
+		while(i>=0 || j>=0){
+			sum = carry;
+			if(i>=0) sum+=a.charAt(i--)-'0';
+			if(j>=0) sum+=b.charAt(j--)-'0';
+			carry = sum / 2;
+			result_rev.append(sum % 2);
+		}
+		if(carry > 0) result_rev.append(carry);
+		return result_rev.reverse().toString();
+    	}
+}
+//-------------------------------------------------(accept)
+利用 StringBuilder 这个，最后 reverse 
+while loop 里面，这个 if(i>=0) 和 if(j>=0) 确保长度不一的情况下，还是继续正确计算。
+这里是计算二进制，所以 sum / 2 和 sum % 2
+利用 sum+=a.charAt(i--)-'0' 去计算到底是什么值， 这个很好。

@@ -1,0 +1,23 @@
+class Solution {
+    	public boolean isPalindrome(int x) {
+        	if(x<0)	return false;
+		if(x==0)	return true;
+		if(x%10 == 0) return false;
+		int new_num = 0;
+		while(x!= 0){
+			new_num = new_num*10 + x%10;
+			x = x/10;
+			if(new_num == x){
+				return true;
+			}
+			else if(new_num > x){
+				new_num = new_num /10;
+				return (new_num == x);
+			}
+		}
+		return false;
+    	}
+}
+
+//------------(accept)
+if(x%10 == 0) return false ; 这个要检查一下，因为如果是 10 的倍数， 末尾是 0 ， 一定就是错的。如果不加这个， 10 的时候， 我的代码就是错的。

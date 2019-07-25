@@ -1,0 +1,92 @@
+class Solution {
+    	public int climbStairs(int n) {
+		if(n<=2) return n;
+        	int[] dp = new int[n+1];
+		dp[0] = 0;
+		dp[1]=1;
+		dp[2]=2;
+		for(int i=3; i<n+1; i++){
+			dp[i] = dp[i-2] + dp[i-1];
+		}
+		return dp[n];
+    	}
+}
+//-----------------------------------------------------------(accept)
+faster than 100.00%		 less than 5.36%
+dynamic programming
+Time complexity : O(n). Single loop up to n.
+Space complexity : O(n). dp array of size n is used. 
+
+利用： dp[i]=dp[i−1]+dp[i−2]
+//---------------------------------------------------------------
+class Solution {
+    	public int climbStairs(int n) {
+		if(n <= 2) return n;
+
+		int left=1 , right=2, sum=0, stair = 2;
+
+		while(stair < n){
+			sum = left + right;
+			left = right;
+			right = sum;
+			stair++;
+		}
+		return sum;
+    	}
+
+}
+//----------------------------------------(accept)
+faster than 100.00%		less than 5.36% 
+The key intuition to solve the problem is that given a number of stairs n, if we know the number ways to get to the points [n-1] and [n-2] respectively, then the total ways to get to the point [n] is n1 + n2.
+
+没有用 recursive , 直接 for loop 三个 var 就搞定。
+
+但是如果我就想用 recursive  
+
+//----------------------------------------------
+class Solution {
+   	public int climbStairs(int n) {
+		int memo[] = new int[n + 1];
+
+       	return helper(n, memo);
+    	}
+	
+	public int helper(int n, int[] memo){
+		if(n <= 2) return memo[n] = n;
+
+		if(memo[n] > 0) return memo[n];
+
+		return memo[n] = helper(n - 1, memo) + helper(n - 2, memo);
+	}
+	
+}
+//-----------------------------------------(accept)
+faster than 100.00%		less than 5.36% 
+用的 recursive , 但是需要一个 array 去记录已经出现过的。否则 run time limit 
+
+思路还是，这一个阶梯的数目是前面两个阶梯的和。
+
+int memo[] = new int[n + 1]	size 是 n+1 是因为我们要求 n 个阶梯的时候的路径， index 是需要 n ， 那么 size 就是 n+1
+然后 index 为 0，代表阶梯为 0 的时候，那么步数自然也就是 0 了。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
