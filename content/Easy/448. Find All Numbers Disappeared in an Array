@@ -1,0 +1,26 @@
+class Solution {
+    	public List<Integer> findDisappearedNumbers(int[] nums) {
+        	List<Integer> list = new ArrayList<>();
+		for(int i=0; i<nums.length; i++){
+			int cur = Math.abs(nums[i])-1;
+			if(nums[cur] > 0){
+				nums[cur] = 0 - nums[cur];
+			}
+		}
+		for(int i=0; i<nums.length; i++){
+			int cur = nums[i];
+			if(cur > 0) list.add(i+1);
+		}
+		return list;
+    	}
+}
+//-----------------------------------------------------(accept)
+faster than 80.21%		less than 56.55%
+
+假如 1 出现了，就把 index=0 上的数字转换成 负数
+假如 5 出现了，就把 index=4 上的数字转换成 负数
+
+最后回过去看：
+
+假如 index=0 上的数字不是负数，说明没有 1 的出现
+
