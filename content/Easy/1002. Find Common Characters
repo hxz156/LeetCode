@@ -1,0 +1,44 @@
+class Solution {
+    	public List<String> commonChars(String[] A) {
+		List<String> ans = new ArrayList<>();
+        	int[] count = new int[26];
+		Arrays.fill(count, Integer.MAX_VALUE);
+		for(String s : A){
+			int[] temp = new int[26];
+
+			// put numbers of chars in s into temp
+			for(int i=0; i<s.length(); i++) {
+				char cur = s.charAt(i);
+				temp[cur - 'a']++;
+			}
+
+			// compare temp[] to the count[], put the minimum value in
+			for(int i=0; i<26; i++){
+				count[i] = Math.min(count[i] , temp[i]);
+			}
+		}
+		for(char c='a'; c<='z'; c++){
+			while(count[c - 'a'] > 0){
+				ans.add("" + c);
+				count[c - 'a'] --;
+			}
+		}
+		return ans;
+    	}
+}
+
+//-----------------------------------------------------------------(accept)
+faster than 50.45%		less than 98.77%
+
+每一个 string ，把出现的 char 的次数记录下来，和最终的那个 char 记录比较，去最小的值。最后最小的值就是所有的 string 共同出现的次数。很巧妙
+
+for(char c='a'; c<='z'; c++)		用这个方法去遍历整个 array ， 算是反向思维，因为我想的是从 int 去寻找，但是你 int 怎么把对应的 char 的值增加？ 比较难，反而用 char 去翻过来表示 int 去遍历。
+
+Arrays.fill(count, Integer.MAX_VALUE)		这一步我没有，因为如果默认都是 0，那你比较 min 的时候全部都比你小了
+
+ans.add("" + c)		因为这里 list 里面是 string，但是 c 是 char， 在前面加一个 “” 就把 char 变成 string 了
+
+
+
+
+

@@ -1,0 +1,27 @@
+class Solution {
+   	public String licenseKeyFormatting(String S, int K) {
+        	S = S.toUpperCase();
+		StringBuilder sb = new StringBuilder();
+		int count=0 ;
+		for(int i=S.length()-1; i>=0; i--){
+			if(S.charAt(i)!='-'){
+				sb.append(S.charAt(i));
+				count++;
+			}
+			if(count == K){
+				sb.append('-');
+				count = 0;
+			}
+			
+		}
+		String ans = sb.reverse().toString();
+		if(ans.length()>0 && ans.charAt(0) == '-') return ans.substring(1);
+		return ans;
+		
+    	}	
+}
+//--------------------------------------------------(accept)
+faster than 63.80%		less than 100.00%
+
+没什么特别的方法，就是从 string 的最后一位往前面加
+就是注意最后检查一下第一个是不是 ‘-’， 因为假如刚好， append 最后一下会加一个 ‘-’

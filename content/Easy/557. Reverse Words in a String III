@@ -1,0 +1,39 @@
+class Solution {
+    	public String reverseWords(String s) {
+        	int start=0, end=0;
+		int len = s.length();
+		StringBuilder sb = new StringBuilder();
+
+		while(start<=len-1 && end<=len-1){
+			if(s.charAt(end) == ' ') {
+				sb.append(reverse(start, end-1, s));
+				sb.append(" ");
+				start = end+1;
+				end=end+1;
+			}else if(end==len-1){
+				sb.append(reverse(start, end, s));
+				start = end+1;
+				end=end+1;
+			}else{
+				end++;
+			}
+		}
+		return sb.toString();
+    	}
+	
+	public String reverse(int start, int end, String s){
+		StringBuilder sb = new StringBuilder();
+		for(int i=end; i>=start; i--){
+			sb.append(s.charAt(i));
+		}
+		return sb.toString();
+	}
+}
+//----------------------------------------------------------(accept)
+ faster than 46.86%		less than 99.72%
+很简单的思路，就是找空格，然后两个指针，用另一个 method 去 reverse
+注意最后一个，最后一个是找不到空格的，所以 else if(end==len-1) ， 并且最后 append 的时候不能加 空格
+
+
+
+
