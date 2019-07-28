@@ -1,0 +1,46 @@
+class Solution {
+    	public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
+        	if(image[sr][sc] == newColor) return image;
+		int oldColor = image[sr][sc];
+
+		dfs(sr, sc, newColor, oldColor, image);
+		return image;
+    	}
+
+	public void dfs(int sr, int sc, int newColor, int oldColor, int[][] image){
+		if(sr<0 || sc<0 || sr>=image.length || sc>=image[0].length) return;
+
+		if(image[sr][sc] == oldColor){
+			image[sr][sc] = newColor;	
+			dfs(sr-1, sc, newColor, oldColor, image);
+			dfs(sr+1, sc, newColor, oldColor, image);
+			dfs(sr, sc-1, newColor, oldColor, image);
+			dfs(sr, sc+1, newColor, oldColor, image);
+		}
+		
+	}
+}
+//---------------------------------------------------------------(accept)
+faster than 89.89%		less than 99.17%
+
+利用 recursive 去 dfs。 最开始没有看懂题目的 example，其实就是很简单的 3*3，然后对应的就是 color。
+Time Complexity: O(N), where N is the number of pixels in the image. We might process every pixel.
+
+Space Complexity: O(N), the size of the implicit call stack when calling dfs.
+
+我想要用 stack 去 实现 dfs， 和 queue 去实现 bfs
+到时候再试吧。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
