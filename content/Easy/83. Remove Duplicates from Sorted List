@@ -1,0 +1,122 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    	public ListNode deleteDuplicates(ListNode head) {
+		if(head == null) return null;
+        	ListNode dummy = new ListNode(-1);
+		dummy.next = head;
+		
+		ListNode left;
+		ListNode	right;
+		left = head;
+		right = head.next;
+		while(right != null){
+			
+			if(left.val == right.val) {
+				left.next = right.next;
+				right = right.next;
+			}else{
+				left=right;
+				right = right.next;
+			}
+			
+		}
+		return dummy.next;
+    	}
+}
+
+//----------------------------------------------------(accept)
+faster than 100.00%		 less than 100.00%
+
+
+如果只有一个 点，那么到最后一步的时候，没发比了。因为假如最后一个和前面那个一样呢？
+所以我用了两个， 一个 left， 一个 right， 如果 相等，left 不动， right 动
+								如果 不想等 left 移动到 right 那里， right 移动下一个
+然而我错了， 下面是 指用一个点的完美解法：
+
+//-------------------------------------------------------------
+class Solution {
+    	public ListNode deleteDuplicates(ListNode head) {
+        	ListNode dummy = new ListNode(-1);
+		dummy.next = head;
+
+		while(head!=null && head.next!=null){
+			if(head.val == head.next.val){
+				head.next = head.next.next;
+			}else{
+				head = head.next;
+			}
+		}
+		return dummy.next;
+    	}
+}
+//--------------------------------------------------------(accept)
+faster than 100.00%			less than 100.00%
+
+关键在 
+		else{
+			head = head.next;
+		}
+		
+		之前遇到的问题是最后一个没发查看。因为我的思路错了！我们如果相等，我们的 head 是不移动的，就是一直把这个 head 作为基站和下一个进行比较！
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

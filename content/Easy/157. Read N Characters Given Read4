@@ -1,0 +1,98 @@
+/**
+ * The read4 API is defined in the parent class Reader4.
+ *     int read4(char[] buf);
+ */
+public class Solution extends Reader4 {
+    /**
+     * @param buf Destination buffer
+     * @param n   Number of characters to read
+     * @return    The number of actual characters read
+     */
+
+    	public int read(char[] buf, int n) {
+		
+		boolean end_file = false;
+
+		int total = 0;
+		int count;
+
+		char[] temp_buf = new char[4];
+		while(!end_file && total<n){
+			count = read4(temp_buf);
+			if(count < 4) end_file=true;
+
+			
+			for(int i=0; i<count; i++){
+
+				buf[total++] = temp_buf[i];
+			}
+		}
+		return total<n? total : n;
+	}
+
+}
+//-------------------------------------------(accept)
+faster than 100.00%			less than 100.00%
+
+count = read4(temp_buf)	先读取一次
+
+if(count < 4) end_file=true		判断是否到了最后一步（最开始没有想到用 boolean  这个方法，明显这个很好）
+
+这道题主要是最开始的理解，
+				count = read4(temp_buf) 这个直接就能读取到 temp_buf
+				然后再利用 loop 把 temp_buf 里面的内容移动到 buf 里面。
+				考验的其实是 对 index 的把控能力。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

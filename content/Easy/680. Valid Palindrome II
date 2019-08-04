@@ -1,0 +1,79 @@
+class Solution {
+    	public boolean validPalindrome(String s) {
+
+        	// check if the original String is palindrome
+
+		// from 0-n, delete current index, check if it is palindrome
+
+		int len = s.length();
+
+		int left = 0, right = len - 1;
+
+		while(left <= right){
+
+			if(s.charAt(left) != s.charAt(right)) return subPalindrome(s, left+1, right) || subPalindrome(s, left, right-1);
+
+			left++;
+			right--;
+		}
+		return true;
+
+    	}
+
+	public boolean subPalindrome(String s, int left, int right){
+		while(left <= right){
+			if(s.charAt(left) != s.charAt(right)) return false;
+			left++;
+			right--;
+		}
+		return true;
+	}
+
+}
+//-------------------------------------------------(accept)
+faster than 79.94%			less than 99.16%
+
+两个指针，一个最左边，一个最右边，然后从两边向内移动。
+
+如果两边不相同了，那么可能删除左边，可能删除右边。
+
+因为我们直接是 两边的 range， 带入自己的 method 就是直接把两个坐标 +1 或者 -1
+
+最开始我没有理解好两个指针的 range 这个特点，其实非常简单。
+
+
+
+Time Complexity: O(N) where N is the length of the string. Each of two checks of whether some substring is a palindrome is O(N).
+
+Space Complexity: O(1) additional complexity. Only pointers were stored in memory.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
