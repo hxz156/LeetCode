@@ -1,0 +1,80 @@
+class MyQueue {
+	Stack<Integer> old_stack = new Stack<>();
+	Stack<Integer> new_stack = new Stack<>();
+
+    	/** Initialize your data structure here. */
+   	 public MyQueue() {
+        	
+    	}
+    
+    	/** Push element x to the back of queue. */
+    	public void push(int x) {
+        	old_stack.push(x);
+   	}
+    
+    	/** Removes the element from in front of queue and returns that element. */
+   	 public int pop() {
+		int ans;
+        	new_stack = reverseStack(old_stack);
+		ans = new_stack.pop();
+		old_stack = reverseStack(new_stack);
+		return ans;
+   	 }
+    
+   	 /** Get the front element. */
+   	 public int peek() {
+        	int ans;
+		new_stack = reverseStack(old_stack);
+		ans = new_stack.peek();
+		old_stack = reverseStack(new_stack);
+		return ans;
+   	 }
+    
+    	/** Returns whether the queue is empty. */
+   	 public boolean empty() {
+    	    	return old_stack.isEmpty();
+   	 }
+
+	public Stack<Integer> reverseStack(Stack<Integer> stack){
+		Stack<Integer> temp = new Stack<>();
+
+		while(!stack.isEmpty() ){
+			temp.push(stack.pop() );
+		}
+		return temp;
+	}
+}
+
+/**
+ * Your MyQueue object will be instantiated and called as such:
+ * MyQueue obj = new MyQueue();
+ * obj.push(x);
+ * int param_2 = obj.pop();
+ * int param_3 = obj.peek();
+ * boolean param_4 = obj.empty();
+ */
+
+//----------------------------------------------------------------------------(accept)
+faster than 82.33%		less than 16.55%
+
+用两个 stack ， 一个储存，一个用来 reverse， 自己再写一个 reverse 的 method
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

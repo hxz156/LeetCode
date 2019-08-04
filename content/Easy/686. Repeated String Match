@@ -1,0 +1,47 @@
+class Solution {
+    	public int repeatedStringMatch(String A, String B) {
+       	// if there is char in B not in A, return -1 (every char in B must in A) 
+
+		int r = 0;
+		StringBuilder sb = new StringBuilder();
+		for( ; sb.length() < B.length() ; r++){
+			sb.append(A);
+		}
+		if(sb.indexOf(B) >=0) return r;
+		sb.append(A);
+		if(sb.indexOf(B) >=0) return r+1;
+		return -1;
+		
+    	}
+}
+//----------------------------------------------------------------------(accept)
+faster than 80.58%			less than 100.00%
+
+用 StringBuilder(), 先让 sb 的长度大于 B , 然后找，如果不行再加一次，目的是处理长度一开始就一样。
+
+Complexity Analysis
+
+Time Complexity: O(N*(N+M)), where M, NM,N are the lengths of strings A, B. We create two strings A * q, A * (q+1) which have length at most O(M+N). When checking whether B is a substring of A, this check takes naively the product of their lengths.
+
+Space complexity: As justified above, we created strings that used O(M+N) space.
+
+
+
+
+那么B要能成为A的字符串，那么A的长度肯定要大于等于B，所以当A的长度小于B的时候，我们可以先进行重复A，直到A的长度大于等于B，并且累计次数cnt。那么此时我们用find来找，看B是否存在A中，如果存在直接返回cnt。如果不存在，我们再加上一个A，再来找，这样可以处理这种情况A="abc", B="cab"，如果此时还找不到，说明无法匹配，返回-1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,48 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    	public boolean hasPathSum(TreeNode root, int sum) {
+        	return helper(root, sum);
+    	}
+
+	public boolean helper(TreeNode root, int sum){
+		if(root == null) return false;
+		int val = root.val;
+		//if(val > sum) return false;
+		if(val == sum && isLeaf(root)) return true;
+		return (helper(root.left, sum-val) || helper(root.right, sum-val) );
+		
+	}
+
+	public boolean isLeaf(TreeNode root){
+		if(root.left == null && root.right == null) return true;
+		return false;
+	}
+}
+
+//-----------------------------------------------（accept）
+faster than 12.49%		less than 100.00%
+
+利用 recursive 去解决
+
+isLeaf(TreeNode root)		必须要检查是否是最后一层！
+
+//if(val > sum) return false; ！！！！ 这一段不能要，因为有负数的情况，全都是负数，比大小就有两种情况，所以不行。唯一的决定是否 true false 在这里就只能走到最后一步。
+
+Time complexity : we visit each node exactly once, thus the time complexity is O(N), where N is the number of nodes.
+
+Space complexity : in the worst case, the tree is completely unbalanced, e.g. each node has only one child node, the recursion call would occur N times (the height of the tree), therefore the storage to keep the call stack would be O(N). But in the best case (the tree is completely balanced), the height of the tree would be log(N). Therefore, the space complexity in this case would be O(log(N)).
+
+可以尝试一下用 stack 去 implement dfs
+
+
+
+
+

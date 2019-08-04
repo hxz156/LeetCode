@@ -1,0 +1,39 @@
+class Solution {
+    	public int fixedPoint(int[] A) {
+        	int left=0, right=A.length-1;
+		int mid;
+
+		while(left < right){
+			mid = left + (right - left)/2;
+			if(A[mid] < mid){
+				left = mid + 1;
+			}else {
+				right = mid;
+			}
+		}
+
+		return A[left]==left ? left : -1;
+    	}
+}
+//-------------------------------------------------------(accept)
+ faster than 100.00%		less than 100.00% 
+
+二分法
+binary search
+
+left = mid + 1;
+right = mid;			为什么是这两个的组合？ 因为 求 mid 的时候， int 会 floor， 也就是 mid 可能会直接等于 left， 所以我们不能赋值left  为 mid， 只能赋值 right 为 mid
+
+
+
+
+
+
+
+
+
+
+
+
+
+

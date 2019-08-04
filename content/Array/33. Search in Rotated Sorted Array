@@ -58,7 +58,48 @@ public int search_under(int left, int right, int[] nums, int target){
 		}
 		return -1;
 	}
+//------------------------------------------------------
+class Solution {
+    	public int search(int[] nums, int target) {
+		if(nums.length == 0) return -1;		
 
+        	// find out the index of rotate point
+		int left=0, right=nums.length-1;
+		int mid, rotate_point;
+		while(left < right){
+			mid = left + (right - left)/2;
+			if(nums[mid] > nums[right]){
+				left = mid + 1;
+			}else{
+				right = mid;
+			}
+		}
+		rotate_point = left;
+		left=0;
+		right=nums.length-1;
+		// based on the rotate point to find the target
+		if(nums[rotate_point] == target){
+			return rotate_point;
+		}else if(nums[right] >= target){
+			return search(rotate_point, right, nums, target);
+		}else{
+			return search(0, rotate_point - 1, nums, target);
+		}
+    	}
+
+	public int search(int left, int right, int[]nums, int target){
+		int mid;
+		while(left < right){
+			mid = left + (right - left) / 2;
+			if(nums[mid]>target){
+				left = mid+1;
+			}else{
+				right = mid;
+			}
+		}
+		return nums[left]==target? left : -1;
+	}
+}
 
 
 

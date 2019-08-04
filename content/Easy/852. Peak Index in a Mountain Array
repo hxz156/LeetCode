@@ -1,0 +1,32 @@
+class Solution {
+    	public int peakIndexInMountainArray(int[] A) {
+        	int left = 0, right = A.length - 1;
+		int mid;
+
+		while(left < right){
+			mid = left + (right - left) /2;
+			if(A[mid] < A[mid + 1]){
+				left = mid + 1;
+			}else{
+				right = mid;
+			}
+		}
+		return left;
+    	}
+}
+//--------------------------------------------------------(accept)
+faster than 100.00%		 less than 98.92%
+
+二分法
+binary search
+
+如果这个点比左边的大，比右边的小，说明在 ‘顶峰’ 的左边
+
+
+
+
+
+
+
+
+

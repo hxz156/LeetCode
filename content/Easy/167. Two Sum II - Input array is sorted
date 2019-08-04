@@ -15,4 +15,10 @@ class Solution {
 }
 //----------------------------------------------------(accept)
 
+二分法
+binary search
 两个 pointer ，一个在开头，一个在结尾，和 target 比较移动 pointer
+
+Time complexity : O(n). Each of the n elements is visited at most once, thus the time complexity is O(n).
+
+Space complexity : O(1). We only use two indexes, the space complexity is O(1).
